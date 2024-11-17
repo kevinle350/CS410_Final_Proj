@@ -80,8 +80,8 @@ def parse_course(html_content):
     subtitle = soup.find("h2", {"class": "white"}).get_text(strip=True) if soup.find("h2", {"class": "white"}) else "N/A"
     
     return {
-        "title": title,
-        "subtitle": subtitle,
+        "course_title": title,
+        "course_name": subtitle,
         "details": paragraphs
     }
 
