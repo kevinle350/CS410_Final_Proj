@@ -14,8 +14,6 @@ if you wish to run the parser locally or change the output structure
 ## Running Parser 
 
 ```
-cd course_parser
-
 pip install -r requirements.txt
 
 python3 course_parser.py
