@@ -6,7 +6,7 @@ After you have cloned the repo, run the following command to install the necessa
     pip install -r requirements.txt
 
 ## Running Chatbot Webpage Locally
-In a terminal,
+In a terminal, run
 
     python main.py
 
