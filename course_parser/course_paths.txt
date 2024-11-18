@@ -1,4 +1,4 @@
-https://uiucmcs.org/courses/CS-498-Cloud-Computing-Applications
+https://uiucmcs.org/courses/CS-598-Advanced-Bayesian-Modeling
 https://uiucmcs.org/courses/CS-525-Advanced-Distributed-Systems
 https://uiucmcs.org/courses/CS-441-Applied-Machine-Learning
 https://uiucmcs.org/courses/CS-498-Cloud-Computing-Applications
