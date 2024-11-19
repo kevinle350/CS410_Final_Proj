@@ -1,6 +1,6 @@
 from dash import Dash, html, Input, Output, State, ctx
 import dash_bootstrap_components as dbc
-import bedrock
+import requests
 
 # Create Dash app
 app = Dash(__name__, external_stylesheets=[dbc.themes.DARKLY])
@@ -89,7 +89,6 @@ app.layout = html.Div(
     ],
 )
 
-
 @app.callback(
     Output("chat-messages", "children"),
     Input("send-button", "n_clicks"),
@@ -122,7 +121,25 @@ def update_chat(n_clicks, n_submit, user_message, chat_messages):
     )
 
     # Add chatbot response (aligned to the left)
-    bot_reply = bedrock.ask_chatbot(user_message)
+    # Just decided to add the fetching from backend code here instead of sepearate function. Pretty short
+    try:
+        response = requests.post(
+            "http://127.0.0.1:5000/query",
+            json={
+                "question": user_message,
+                "course_title": "Applied Machine Learning"
+            },
+        )
+        if response.status_code == 200:
+            data = response.json()
+            bot_reply = f"{data['answer']} (Confidence: {data['score']:.2f})"
+        elif response.status_code == 404:
+            bot_reply = "Course not found."
+        else:
+            bot_reply = "Error: Unable to process your request."
+    except Exception as e:
+        bot_reply = f"Error: {e}"
+
     chat_history.append(
         html.Div(
             f"{bot_reply}",
@@ -141,7 +158,6 @@ def update_chat(n_clicks, n_submit, user_message, chat_messages):
     )
 
     return chat_history
-
 
 @app.callback(
     Output("user-input", "value"),

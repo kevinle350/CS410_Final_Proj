@@ -1,5 +1,6 @@
 import json
 from transformers import pipeline
+from flask import Flask, request, jsonify
 
 def load_jsonl(file_path):
     """
@@ -74,5 +75,34 @@ def main():
     print(f"Single answers saved to {output_file}")
 
 
+# Additions for Backend API Integration
+app = Flask(__name__)
+
+# Load the courses and pipeline once for reuse
+jsonl_file = '../course_parser/documents/courses.jsonl'
+courses = load_jsonl(jsonl_file)
+qa_pipeline = pipeline("question-answering", model="deepset/roberta-base-squad2")
+
+@app.route('/query', methods=['POST'])
+def query_api():
+    """
+    API endpoint for querying course information.
+    Input: {"question": "<query>", "course_title": "<title>"}
+    """
+    data = request.json
+    question = data.get("question")
+    course_title = data.get("course_title")
+
+    if not question or not course_title:
+        return jsonify({"error": "Both 'question' and 'course_title' are required."})
+
+    course = next((c for c in courses if c["course_title"].lower() == course_title.lower()), None)
+    if not course:
+        return jsonify({"error": f"Course with title '{course_title}' not found."})
+
+    result = query_course(qa_pipeline, question, course)
+    return jsonify(result)
+
 if __name__ == "__main__":
-    main()
+    # main()  # Use this to run the existing script logic
+    app.run(debug=True, host='0.0.0.0', port=5000)  # Use this to run the backend API
