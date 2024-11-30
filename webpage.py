@@ -32,6 +32,44 @@ app.layout = html.Div(
                     "and we will recommend a course for you to take!",
                     style={"color": "#888888", "lineHeight": "1.6"},
                 ),
+                html.Div(
+                    children=[
+                        dbc.Label("Select a Course:"),
+                        dbc.Select(
+                            id="course-dropdown",
+                            options=[
+                                {"label": "CS 598: Advanced Bayesian Modeling", "value": "Advanced Bayesian Modeling"},
+                                {"label": "CS 525: Advanced Distributed Systems", "value": "Advanced Distributed Systems"},
+                                {"label": "CS 441: Applied Machine Learning", "value": "Applied Machine Learning"},
+                                {"label": "CS 498: Cloud Computing Applications", "value": "Cloud Computing Applications"},
+                                {"label": "CS 598: Cloud Computing Capstone", "value": "Cloud Computing Capstone"},
+                                {"label": "CS 435: Cloud Networking", "value": "Cloud Networking"},
+                                {"label": "CS 445: Computational Photography", "value": "Computational Photography"},
+                                {"label": "CS 463: Computer Security II", "value": "Computer Security II"},
+                                {"label": "CS 598: Data Mining Capstone", "value": "Data Mining Capstone"},
+                                {"label": "CS 416: Data Visualization", "value": "Data Visualization"},
+                                {"label": "CS 411: Database Systems", "value": "Database Systems"},
+                                {"label": "CS 598: Deep Learning for Healthcare", "value": "Deep Learning for Healthcare"},
+                                {"label": "CS 425: Distributed Systems (Cloud Computing Concepts)", "value": "Distributed Systems"},
+                                {"label": "CS 598: Foundations of Data Curation", "value": "Foundations of Data Curation"},
+                                {"label": "CS 418: Interactive Computer Graphics", "value": "Interactive Computer Graphics"},
+                                {"label": "CS 437: Internet of Things", "value": "Internet of Things"},
+                                {"label": "CS 412: Introduction to Data Mining", "value": "Introduction to Data Mining"},
+                                {"label": "STAT 420: Methods of Applied Statistics", "value": "Methods of Applied Statistics"},
+                                {"label": "CS 447: Natural Language Processing", "value": "Natural Language Processing"},
+                                {"label": "CS 450: Numerical Analysis", "value": "Numerical Analysis"},
+                                {"label": "CS 484: Parallel Programming", "value": "Parallel Programming"},
+                                {"label": "CS 598: Practical Statistical Learning", "value": "Practical Statistical Learning"},
+                                {"label": "CS 421: Programming Languages and Compilers", "value": "Programming Languages and Compilers"},
+                                {"label": "CS 519: Scientific Visualization", "value": "Scientific Visualization"},
+                                {"label": "CS 427: Software Engineering I", "value": "Software Engineering I"},
+                                {"label": "CS 410: Text Information Systems", "value": "Text Information Systems"},
+                                {"label": "CS 513: Theory and Practice of Data Cleaning", "value": "Data Cleaning"},
+                            ],
+                            placeholder="Select a course",
+                        ),
+                    ],
+                )
             ],
         ),
         # Chat Area
@@ -94,11 +132,12 @@ app.layout = html.Div(
     Input("send-button", "n_clicks"),
     Input("user-input", "n_submit"),  # Capture Enter key submission
     State("user-input", "value"),
+    State("course-dropdown", "value"),
     State("chat-messages", "children"),
     prevent_initial_call=True,
 )
-def update_chat(n_clicks, n_submit, user_message, chat_messages):
-    if not user_message:
+def update_chat(n_clicks, n_submit, user_message, selected_course, chat_messages):
+    if not user_message or not selected_course:
         return chat_messages
 
     # Add user message (aligned to the right)
@@ -120,14 +159,12 @@ def update_chat(n_clicks, n_submit, user_message, chat_messages):
         )
     )
 
-    # Add chatbot response (aligned to the left)
-    # Just decided to add the fetching from backend code here instead of sepearate function. Pretty short
     try:
         response = requests.post(
             "http://127.0.0.1:5000/query",
             json={
                 "question": user_message,
-                "course_title": "Applied Machine Learning"
+                "course_title": selected_course
             },
         )
         if response.status_code == 200:
