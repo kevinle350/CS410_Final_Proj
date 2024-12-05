@@ -24,12 +24,11 @@ app.layout = html.Div(
                 "boxShadow": "2px 0 5px rgba(0, 0, 0, 0.5)",
             },
             children=[
-                html.H2("Welcome to the Course Recommender!", style={"color": "#BBBBBB"}),
+                html.H2("Welcome to the Course Analyzer!", style={"color": "#BBBBBB"}),
                 html.P("We are here to help you.",
                     style={"color": "#888888", "lineHeight": "1.6"},
                 ),
-                html.P("Enter topics you are interested in learning about in the chat "
-                    "and we will recommend a course for you to take!",
+                html.P("Select a course below and then ask questions to learn more about it.",
                     style={"color": "#888888", "lineHeight": "1.6"},
                 ),
                 html.Div(
@@ -77,7 +76,7 @@ app.layout = html.Div(
             style={"flex": "1", "display": "flex", "flexDirection": "column"},
             children=[
                 html.Div(
-                    "Course Recommender",
+                    "Course Analyzer",
                     style={
                         "backgroundColor": "#282C34",  # Darker header
                         "color": "#FFFFFF",
