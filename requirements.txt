@@ -1,3 +1,5 @@
 dash
 dash_bootstrap_components
 boto3
+transformers
+tensorflow
