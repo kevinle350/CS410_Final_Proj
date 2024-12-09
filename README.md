@@ -1,5 +1,28 @@
 # Course Analyzer
 
+## Implementation Overview
+
+The Course Analyzer project is implemented using a combination of Python and modern frameworks for web development and natural language processing. Here's a breakdown of the key components:
+
+1. **Course Data Parsing**:
+   - A JSONL file (`courses.jsonl`) contains structured course information, including titles, names, and detailed descriptions. The `course_parser` script allows for parsing and updating this dataset. This was achieved by the webcrawling.
+
+2. **Natural Language Processing (NLP)**:
+   - The `inference.py` script uses a pre-trained transformer model (`deepset/roberta-base-squad2`) to answer specific questions about courses. It processes each course's context and generates tailored responses to queries.
+
+3. **Web Interface**:
+   - The `webpage.py` script sets up a chatbot interface using Dash and Flask. Users can select courses and ask questions, receiving answers with confidence scores via auser-friendly web interface.
+
+4. **Backend API**:
+   - A Flask-based API allows querying the course data. This ensures efficient reuse of NLP models and easy integration with the chatbot front-end.
+
+5. **Integration**:
+   - The NLP model and web interface are seamlessly connected. When a user submits a query, the chatbot sends the input to the API, which processes the query and returns a result displayed in the chat.
+
+Our implementation was verified based on expected output by manually looking at the data on the webpage and seeing the matchup based on the confidence score.
+
+
+
 ## Initialize Repo
 After you have cloned the repo, run the following command to install the necessary dependencies
 
