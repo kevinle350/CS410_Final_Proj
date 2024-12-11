@@ -1,5 +1,8 @@
 # Course Analyzer
 
+## Project Description
+A problem that we find as students is finding the right courses to take for the upcoming semesters. There is so much information around and it is difficult to tailor information to a single place that can give a student a direct suggestion on whether or not a course should be taken or not and comparisons to other similar courses. We want to build a chatbot that will help students determine what classes to take based on their interests and course feedback. We plan to crawl data from https://uiucmcs.org/ and to take the students' comments into consideration when generating a response from the chatbot. Since this dataset is extremely small, we plan to compare the output of the chat-bot against the ranking of the implicit feedback, pseudo-relevant feedback, and relevant feedback output that we are able to find.
+
 ## Implementation Overview
 
 The Course Analyzer project is implemented using a combination of Python and modern frameworks for web development and natural language processing. Here's a breakdown of the key components:
@@ -21,6 +24,12 @@ The Course Analyzer project is implemented using a combination of Python and mod
 
 Our implementation was verified based on expected output by manually looking at the data on the webpage and seeing the matchup based on the confidence score.
 
+
+## Video Demo
+Our team's video demo can be found [here](https://mediaspace.illinois.edu/media/t/1_noc04h09).
+
+## TextData Proposal
+Our team's project proposal can be found [here](https://textdata.org/submissions/671b1be2c2928a238422fd77).
 
 
 ## Initialize Repo
